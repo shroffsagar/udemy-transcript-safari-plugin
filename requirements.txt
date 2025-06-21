@@ -1,0 +1,7 @@
+# Python dependencies for Safari transcript copy extension
+# This plugin is mainly implemented in JavaScript, but these dependencies
+# assist with handling transcripts or building helper scripts.
+
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+pyperclip>=1.8.2
