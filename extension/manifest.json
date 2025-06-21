@@ -1,0 +1,22 @@
+{
+  "name": "Udemy Transcript Copier",
+  "description": "Copy transcript from Udemy videos using the context menu.",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.udemy.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
