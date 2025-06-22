@@ -27,6 +27,7 @@ body {
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  box-sizing: border-box;
 }
 
 .fs-6 {
@@ -53,4 +54,10 @@ textarea#transcript {
   font-size: 0.875rem;
   line-height: 1.4;
   resize: vertical;
+  width: 100%;
+  min-height: 12rem;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
