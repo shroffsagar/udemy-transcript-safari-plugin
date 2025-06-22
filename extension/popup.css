@@ -3,6 +3,48 @@ body {
     Helvetica, Arial, sans-serif;
 }
 
+.popup-window {
+  width: 480px;
+  max-height: 260px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.p-3 {
+  padding: 1rem;
+}
+
+.container-fluid {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+}
+
+.fs-6 {
+  font-size: 1rem;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -19,4 +61,11 @@ textarea#transcript {
   font-size: 0.875rem;
   line-height: 1.4;
   resize: vertical;
+  width: 100%;
+  min-height: 10rem;
+  border: 1px solid #b4b9bf;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
