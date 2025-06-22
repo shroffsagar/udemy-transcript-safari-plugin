@@ -3,6 +3,13 @@ body {
     Helvetica, Arial, sans-serif;
 }
 
+.popup-window {
+  width: 480px;
+  max-height: 260px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 .bg-light {
   background-color: #f8f9fa;
 }
@@ -55,9 +62,10 @@ textarea#transcript {
   line-height: 1.4;
   resize: vertical;
   width: 100%;
-  min-height: 12rem;
-  border: 1px solid #adb5bd;
+  min-height: 10rem;
+  border: 1px solid #b4b9bf;
   border-radius: 0.25rem;
   padding: 0.5rem;
   box-sizing: border-box;
+  overflow-y: auto;
 }
