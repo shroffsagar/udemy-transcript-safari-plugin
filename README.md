@@ -17,9 +17,9 @@ transcript from the popup.
 The extension relies purely on JavaScript and does not require any additional
 build steps.
 
-## Automated Builds
+## Building the Extension
 
-Every push to the `main` branch triggers a GitHub Actions workflow that runs
-`xcrun safari-web-extension-converter` on macOS and uploads the resulting
-Xcode project as an artifact. You can download the artifact from the workflow
-run to obtain a prebuilt Safari extension project.
+The automated GitHub Actions workflow that previously produced prebuilt
+artifacts has been removed. To create a Safari extension project, run
+`xcrun safari-web-extension-converter` locally on macOS and open the generated
+Xcode project.
