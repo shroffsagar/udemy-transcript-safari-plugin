@@ -10,7 +10,9 @@ You can manually copy the transcript from the popup.
    *Show Develop menu in menu bar*).
 2. Choose **Develop → Show Web Extension Background Page…** and load the
    `extension` folder from this repository.
-3. While watching a Udemy course video, click the extension icon. A popup will
+
+3. In Safari Extension settings, allow the extension on `udemy.com` and set "When visiting other websites" to Deny.
+4. While watching a Udemy course video, click the extension icon. A popup will
    appear containing the transcript text which you can select and copy. If the
    popup reports that no transcript was found, make sure the transcript pane is
    visible on the Udemy page.
