@@ -1,0 +1,22 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.header img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}
+
+textarea#transcript {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  resize: vertical;
+}
