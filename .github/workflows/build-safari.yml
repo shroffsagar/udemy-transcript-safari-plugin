@@ -18,7 +18,7 @@ jobs:
           PROJ=$(find build -name '*.xcodeproj' | head -n 1)
           xcodebuild -project "$PROJ" -configuration Release CODE_SIGNING_ALLOWED=NO
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: safari-extension
           path: build
