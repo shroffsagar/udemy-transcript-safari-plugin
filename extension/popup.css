@@ -1,30 +1,50 @@
 /* popup.css - styles for Udemy Transcript Safari Extension */
 
-/* Root variables and base styles */
+/* -----------------------------------------------------------------
+   Variables
+   ----------------------------------------------------------------- */
 :root {
   --primary-color: #4a90e2;
-  --secondary-color: #6c757d;
+  --primary-color-dark: #3d7fd6;
   --bg-color: #f9f9fb;
   --card-bg: #ffffff;
   --text-color: #333333;
+  --shadow-color: rgba(0,0,0,0.1);
   --border-radius: 8px;
+  --header-height: 40px;
+  --pointer-size: 10px;
 
   font-family: "Inter", "Roboto", sans-serif;
 }
 
+/* -----------------------------------------------------------------
+   Layout
+   ----------------------------------------------------------------- */
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-color);
   color: var(--text-color);
+  overflow: hidden;
   animation: fadeSlideDown 200ms ease-out;
 }
 
-/* Header bar */
+/* -----------------------------------------------------------------
+   Header
+   ----------------------------------------------------------------- */
 .header {
-  background: linear-gradient(to bottom, var(--primary-color), #3d7fd6);
+  height: var(--header-height);
+  background: linear-gradient(to right, var(--primary-color), var(--primary-color-dark));
   color: #fff;
-  text-align: center;
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   font-size: 14px;
   font-weight: 600;
@@ -33,13 +53,25 @@ body {
   text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
 
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * var(--pointer-size));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--pointer-size) * 2);
+  height: var(--pointer-size);
+  background: inherit;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
 .copy-btn {
   position: absolute;
   right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
   width: 16px;
   height: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   fill: #fff;
   opacity: 0;
   cursor: pointer;
@@ -50,20 +82,41 @@ body {
   opacity: 1;
 }
 
-/* Transcript container */
+.tooltip {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-color);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+/* -----------------------------------------------------------------
+   Card
+   ----------------------------------------------------------------- */
 .transcript-card {
-  margin: 12px;
+  flex: 1;
   background: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  margin-top: var(--pointer-size);
   padding: 16px;
   max-height: 60vh;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #transcript {
   width: 100%;
-  height: 100%;
   border: none;
   background: transparent;
   resize: none;
@@ -76,7 +129,9 @@ body {
   outline: none;
 }
 
-/* Scrollbar styling */
+/* -----------------------------------------------------------------
+   Scrollbar
+   ----------------------------------------------------------------- */
 .transcript-card::-webkit-scrollbar {
   width: 8px;
 }
@@ -91,7 +146,9 @@ body {
   border-radius: var(--border-radius);
 }
 
-/* Animations */
+/* -----------------------------------------------------------------
+   Animations
+   ----------------------------------------------------------------- */
 @keyframes fadeSlideDown {
   from {
     opacity: 0;
@@ -103,16 +160,16 @@ body {
   }
 }
 
-/* Dark mode */
+/* -----------------------------------------------------------------
+   Dark Mode
+   ----------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #1c1c1e;
     --card-bg: #2c2c2e;
     --text-color: #f2f2f7;
-  }
-
-  .transcript-card {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    --shadow-color: rgba(0,0,0,0.6);
+    --primary-color-dark: #356abf;
   }
 
   .copy-btn {

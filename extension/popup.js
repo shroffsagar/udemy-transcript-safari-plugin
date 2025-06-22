@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
   const copyBtn = document.getElementById('copy-btn');
+  const tooltip = document.getElementById('copy-tooltip');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {
       const textarea = document.getElementById('transcript');
       navigator.clipboard.writeText(textarea.value);
+      if (tooltip) {
+        tooltip.classList.add('show');
+        setTimeout(() => tooltip.classList.remove('show'), 1200);
+      }
     });
   }
 
