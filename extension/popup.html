@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <title>Udemy Transcript</title>
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        integrity="sha384-VmM3mcHkMvCGyxU8x5dR/MwZ0pniS3pSkeCZMt2rtI8BGG99HCaTKty+O3O5+y+N"
-        crossorigin="anonymous">
+  <link rel="stylesheet" href="popup.css">
 </head>
-<body class="bg-light p-2">
-  <div class="container-fluid">
-    <h1 class="h5 mb-2">Transcript</h1>
-    <textarea id="transcript" class="form-control" rows="10" readonly>
-Loading transcript...</textarea>
+<body>
+  <div class="header">
+    Transcript
+    <svg id="copy-btn" class="copy-btn" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1z"/>
+      <path d="M19 5H8c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 18H8V7h11v16z"/>
+    </svg>
+  </div>
+  <div class="transcript-card">
+    <textarea id="transcript" readonly>Loading transcript...</textarea>
   </div>
   <script src="popup.js"></script>
 </body>

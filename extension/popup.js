@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const copyBtn = document.getElementById('copy-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      const textarea = document.getElementById('transcript');
+      navigator.clipboard.writeText(textarea.value);
+    });
+  }
+
   browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
     if (!tabs.length) return;
     const tab = tabs[0];

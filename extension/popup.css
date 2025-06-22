@@ -1,0 +1,122 @@
+/* popup.css - styles for Udemy Transcript Safari Extension */
+
+/* Root variables and base styles */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #6c757d;
+  --bg-color: #f9f9fb;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --border-radius: 8px;
+
+  font-family: "Inter", "Roboto", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-color);
+  color: var(--text-color);
+  animation: fadeSlideDown 200ms ease-out;
+}
+
+/* Header bar */
+.header {
+  background: linear-gradient(to bottom, var(--primary-color), #3d7fd6);
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.copy-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.header:hover .copy-btn {
+  opacity: 1;
+}
+
+/* Transcript container */
+.transcript-card {
+  margin: 12px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+#transcript {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#transcript:focus {
+  outline: none;
+}
+
+/* Scrollbar styling */
+.transcript-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.transcript-card::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: var(--border-radius);
+}
+
+.transcript-card::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+/* Animations */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1c1c1e;
+    --card-bg: #2c2c2e;
+    --text-color: #f2f2f7;
+  }
+
+  .transcript-card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .copy-btn {
+    fill: var(--text-color);
+  }
+}
+
