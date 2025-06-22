@@ -3,6 +3,40 @@ body {
     Helvetica, Arial, sans-serif;
 }
 
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.p-3 {
+  padding: 1rem;
+}
+
+.container-fluid {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.fs-6 {
+  font-size: 1rem;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
 .header {
   display: flex;
   align-items: center;

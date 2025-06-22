@@ -18,7 +18,8 @@ You can manually copy the transcript from the popup.
    visible on the Udemy page.
 
 The extension relies solely on the files in the `extension` directory and does
-not require any build steps. Simply load the folder in Safari as described
-above. If you want to create a distributable Safari app extension, run
-`xcrun safari-web-extension-converter` on macOS and open the generated Xcode
-project.
+not require any build steps. All styles are bundled locally so the popup works
+offline without fetching remote resources. Simply load the folder in Safari as
+described above. If you want to create a distributable Safari app extension,
+run `xcrun safari-web-extension-converter` on macOS and open the generated
+Xcode project.
