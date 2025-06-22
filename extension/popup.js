@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (response && response.transcript) {
         textarea.value = response.transcript;
       } else {
-        textarea.value = 'Transcript not found.';
+        textarea.value = 'No transcript found. Ensure the transcript pane is enabled.';
       }
     }).catch(() => {
-      document.getElementById('transcript').value = 'Transcript not found.';
+      document.getElementById('transcript').value = 'No transcript found. Ensure the transcript pane is enabled.';
     });
   });
 });

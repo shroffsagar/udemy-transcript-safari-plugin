@@ -1,25 +1,22 @@
 # udemy-transcript-safari-plugin
 
-This repository contains a simple Safari Web Extension that displays the
+This repository contains a small Safari Web Extension that shows the
 transcript of the currently viewed Udemy video in a popup window.
-Instead of copying to the clipboard automatically, you can manually copy the
-transcript from the popup.
+You can manually copy the transcript from the popup.
 
 ## Installing in Safari
 
 1. Open **Safari** and enable the *Develop* menu (Preferences → Advanced →
-   "Show Develop menu in menu bar").
-2. Select **Develop → Show Web Extension Background Page…** and load the
-   `extension` folder as an unpacked extension.
-3. Click the extension icon while viewing a Udemy course video. A popup will
-   appear containing the full transcript text which you can select and copy.
+   *Show Develop menu in menu bar*).
+2. Choose **Develop → Show Web Extension Background Page…** and load the
+   `extension` folder from this repository.
+3. While watching a Udemy course video, click the extension icon. A popup will
+   appear containing the transcript text which you can select and copy. If the
+   popup reports that no transcript was found, make sure the transcript pane is
+   visible on the Udemy page.
 
-The extension relies purely on JavaScript and does not require any additional
-build steps.
-
-## Building the Extension
-
-The automated GitHub Actions workflow that previously produced prebuilt
-artifacts has been removed. To create a Safari extension project, run
-`xcrun safari-web-extension-converter` locally on macOS and open the generated
-Xcode project.
+The extension relies solely on the files in the `extension` directory and does
+not require any build steps. Simply load the folder in Safari as described
+above. If you want to create a distributable Safari app extension, run
+`xcrun safari-web-extension-converter` on macOS and open the generated Xcode
+project.
