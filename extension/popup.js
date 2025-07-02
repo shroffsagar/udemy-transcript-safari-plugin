@@ -1,9 +1,37 @@
 document.addEventListener('DOMContentLoaded', function () {
   const ext = typeof browser !== 'undefined' ? browser : chrome;
-  ext.tabs.query({active: true, currentWindow: true}).then(tabs => {
+  const isBrowserAPI = typeof browser !== 'undefined';
+
+  function queryActiveTab() {
+    return new Promise(resolve => {
+      if (isBrowserAPI) {
+        ext.tabs.query({active: true, currentWindow: true}).then(resolve);
+      } else {
+        ext.tabs.query({active: true, currentWindow: true}, resolve);
+      }
+    });
+  }
+
+  function sendMessage(tabId, msg) {
+    return new Promise((resolve, reject) => {
+      if (isBrowserAPI) {
+        ext.tabs.sendMessage(tabId, msg).then(resolve, reject);
+      } else {
+        ext.tabs.sendMessage(tabId, msg, response => {
+          if (chrome.runtime.lastError) {
+            reject(chrome.runtime.lastError);
+          } else {
+            resolve(response);
+          }
+        });
+      }
+    });
+  }
+
+  queryActiveTab().then(tabs => {
     if (!tabs.length) return;
     const tab = tabs[0];
-    ext.tabs.sendMessage(tab.id, {action: 'getTranscript'}).then(response => {
+    sendMessage(tab.id, {action: 'getTranscript'}).then(response => {
       const textarea = document.getElementById('transcript');
       if (response && response.transcript) {
         textarea.value = response.transcript;
