@@ -136,17 +136,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function triggerDownload(blob, filename) {
     const url = URL.createObjectURL(blob);
-    if (browser.downloads && browser.downloads.download) {
-      browser.downloads.download({ url, filename, saveAs: true })
-        .then(() => URL.revokeObjectURL(url), () => URL.revokeObjectURL(url));
-    } else {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+    const downloadsApi =
+      (typeof browser !== 'undefined' && browser.downloads) ||
+      (typeof chrome !== 'undefined' && chrome.downloads);
+
+    const useFallback = () => {
       URL.revokeObjectURL(url);
+      const reader = new FileReader();
+      reader.onload = () => {
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = reader.result;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+      reader.readAsDataURL(blob);
+    };
+
+    if (downloadsApi && typeof downloadsApi.download === 'function') {
+      try {
+        const result = downloadsApi.download({ url, filename });
+        if (result && typeof result.then === 'function') {
+          result.then(() => URL.revokeObjectURL(url)).catch(useFallback);
+        } else {
+          URL.revokeObjectURL(url);
+        }
+      } catch (e) {
+        useFallback();
+      }
+    } else {
+      useFallback();
     }
   }
 
