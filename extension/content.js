@@ -6,8 +6,18 @@
   let lastRenderedChapter = null;
 
   function getCurrentChapterName() {
-    const current = document.querySelector('li[class*="curriculum-item-link--is-current"]');
-    return current ? current.textContent.trim() : null;
+    const selectors = [
+      'li[class*="curriculum-item-link--is-current"]',
+      'li[class*="curriculum-item--is-current"]',
+      '[data-purpose="curriculum-item-link"][aria-current="true"]',
+      '[data-purpose="curriculum-item-link"][aria-current="page"]'
+    ];
+    for (const selector of selectors) {
+      const el = document.querySelector(selector);
+      if (el) return el.textContent.trim();
+    }
+    const titlePart = document.title.split('|')[0];
+    return titlePart ? titlePart.trim() : null;
   }
 
   function getTranscriptText() {
@@ -16,7 +26,7 @@
   }
 
   function isTranscriptVisible() {
-    const pane = document.querySelector('div[data-purpose="transcript"]');
+    const pane = document.querySelector('[data-purpose*="transcript"]');
     return pane && pane.offsetParent !== null;
   }
 
