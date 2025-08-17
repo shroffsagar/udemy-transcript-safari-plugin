@@ -32,6 +32,13 @@
   }, 2000);
 
   browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    const senderHost = sender.url ? new URL(sender.url).hostname : '';
+    const isUdemyDomain = senderHost === 'udemy.com' || senderHost.endsWith('.udemy.com');
+
+    if (sender.id !== browser.runtime.id || !isUdemyDomain) {
+      return;
+    }
+
     if (msg.action === 'getTranscript') {
       sendResponse({ transcript: getTranscriptText() });
     }
