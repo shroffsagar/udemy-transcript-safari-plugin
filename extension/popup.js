@@ -1,16 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const chapterList = document.getElementById('chapters');
+  const textarea = document.getElementById('transcript');
+  let transcripts = {};
+
+  function selectChapter(chapter) {
+    textarea.value = transcripts[chapter] || '';
+    [...chapterList.children].forEach(li => {
+      li.classList.toggle('active', li.dataset.chapter === chapter);
+    });
+  }
+
+  function renderChapters(current) {
+    chapterList.innerHTML = '';
+    const chapters = Object.keys(transcripts);
+    chapters.forEach(chapter => {
+      const li = document.createElement('li');
+      li.textContent = chapter;
+      li.dataset.chapter = chapter;
+      if (chapter === current) {
+        li.classList.add('active');
+      }
+      li.addEventListener('click', () => selectChapter(chapter));
+      chapterList.appendChild(li);
+    });
+
+    const defaultChapter = current && transcripts[current] ? current : chapters[0];
+    if (defaultChapter) {
+      selectChapter(defaultChapter);
+    } else {
+      textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
+    }
+  }
+
   browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
     if (!tabs.length) return;
     const tab = tabs[0];
-    browser.tabs.sendMessage(tab.id, {action: 'getTranscript'}).then(response => {
-      const textarea = document.getElementById('transcript');
-      if (response && response.transcript) {
-        textarea.value = response.transcript;
+    browser.tabs.sendMessage(tab.id, {action: 'getTranscriptData'}).then(response => {
+      if (response && response.transcripts) {
+        transcripts = response.transcripts;
+        renderChapters(response.currentChapter);
       } else {
-        textarea.value = 'No transcript found. Ensure the transcript pane is enabled.';
+        textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
       }
     }).catch(() => {
-      document.getElementById('transcript').value = 'No transcript found. Ensure the transcript pane is enabled.';
+      textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
     });
   });
 });
+
