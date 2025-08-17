@@ -8,7 +8,7 @@
     "storage"
   ],
   "host_permissions": [
-    "*://*.udemy.com/*"
+    "https://www.udemy.com/*"
   ],
   "action": {
     "default_title": "Show Transcript",
@@ -23,7 +23,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.udemy.com/*"],
+      "matches": ["https://www.udemy.com/*"],
       "js": ["content.js"],
       "run_at": "document_end"
     }
