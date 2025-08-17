@@ -1,3 +1,5 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', function () {
   const chapterList = document.getElementById('chapters');
   const textarea = document.getElementById('transcript');
