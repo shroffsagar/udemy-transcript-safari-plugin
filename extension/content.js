@@ -14,7 +14,11 @@
 
   function getCurrentChapterName() {
     const current = document.querySelector('li[class*="curriculum-item-link--is-current"]');
-    return current ? current.textContent.trim() : null;
+    if (!current) {
+      return null;
+    }
+    const text = current.textContent.trim();
+    return text.replace(/^(Play|Stop)\s*/i, '').trim();
   }
 
   function captureTranscript() {
