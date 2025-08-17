@@ -35,16 +35,25 @@ document.addEventListener('DOMContentLoaded', function () {
   browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
     if (!tabs.length) return;
     const tab = tabs[0];
-    browser.tabs.sendMessage(tab.id, {action: 'getTranscriptData'}).then(response => {
-      if (response && response.transcripts) {
-        transcripts = response.transcripts;
-        renderChapters(response.currentChapter);
+    try {
+      const hostname = new URL(tab.url).hostname;
+      if (hostname.endsWith('.udemy.com')) {
+        browser.tabs.sendMessage(tab.id, {action: 'getTranscriptData'}).then(response => {
+          if (response && response.transcripts) {
+            transcripts = response.transcripts;
+            renderChapters(response.currentChapter);
+          } else {
+            textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
+          }
+        }).catch(() => {
+          textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
+        });
       } else {
-        textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
+        textarea.value = 'This extension only works on Udemy course pages.';
       }
-    }).catch(() => {
-      textarea.value = 'No transcripts recorded. Open the transcript pane on Udemy to start recording.';
-    });
+    } catch (e) {
+      textarea.value = 'This extension only works on Udemy course pages.';
+    }
   });
 });
 
