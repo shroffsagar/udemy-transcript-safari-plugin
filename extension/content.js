@@ -43,11 +43,9 @@
   }, 2000);
 
   browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    // Prefer the tab's URL when validating the sender so popup messages
-    // from the extension aren't rejected for having a moz-extension:// host.
-    const senderUrl = (sender.tab && sender.tab.url) || sender.url || '';
-    const senderHost = senderUrl ? new URL(senderUrl).hostname : '';
-    const isUdemyDomain = senderHost === 'udemy.com' || senderHost.endsWith('.udemy.com');
+    // Validate messages from this extension and ensure we're on a Udemy page.
+    const pageHost = window.location.hostname;
+    const isUdemyDomain = pageHost === 'udemy.com' || pageHost.endsWith('.udemy.com');
 
     if (sender.id !== browser.runtime.id || !isUdemyDomain) {
       return;
@@ -57,6 +55,7 @@
       sendResponse({ transcript: getTranscriptText() });
     }
     if (msg.action === 'getTranscriptData') {
+      captureTranscript();
       sendResponse({ currentChapter, transcripts: chapterTranscripts });
     }
   });
