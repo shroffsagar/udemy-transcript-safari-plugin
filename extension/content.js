@@ -43,7 +43,9 @@
   }, 2000);
 
   browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    const senderUrl = sender.url || (sender.tab && sender.tab.url) || '';
+    // Prefer the tab's URL when validating the sender so popup messages
+    // from the extension aren't rejected for having a moz-extension:// host.
+    const senderUrl = (sender.tab && sender.tab.url) || sender.url || '';
     const senderHost = senderUrl ? new URL(senderUrl).hostname : '';
     const isUdemyDomain = senderHost === 'udemy.com' || senderHost.endsWith('.udemy.com');
 
