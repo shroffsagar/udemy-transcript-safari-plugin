@@ -43,7 +43,8 @@
   }, 2000);
 
   browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    const senderHost = sender.url ? new URL(sender.url).hostname : '';
+    const senderUrl = sender.url || (sender.tab && sender.tab.url) || '';
+    const senderHost = senderUrl ? new URL(senderUrl).hostname : '';
     const isUdemyDomain = senderHost === 'udemy.com' || senderHost.endsWith('.udemy.com');
 
     if (sender.id !== browser.runtime.id || !isUdemyDomain) {
