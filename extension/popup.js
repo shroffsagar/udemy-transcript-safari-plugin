@@ -134,6 +134,22 @@ document.addEventListener('DOMContentLoaded', function () {
     return out;
   }
 
+  function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    if (browser.downloads && browser.downloads.download) {
+      browser.downloads.download({ url, filename, saveAs: true })
+        .then(() => URL.revokeObjectURL(url), () => URL.revokeObjectURL(url));
+    } else {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+
   function downloadAll() {
     if (!Object.keys(transcripts).length) return;
     const files = {};
@@ -143,12 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     const zipBytes = createZip(files);
     const blob = new Blob([zipBytes], { type: 'application/zip' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'transcripts.zip';
-    a.click();
-    URL.revokeObjectURL(url);
+    triggerDownload(blob, 'transcripts.zip');
   }
 
   downloadBtn.addEventListener('click', downloadAll);
