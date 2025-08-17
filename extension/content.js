@@ -14,7 +14,11 @@
 
   function getCurrentChapterName() {
     const current = document.querySelector('li[class*="curriculum-item-link--is-current"]');
-    return current ? current.textContent.trim() : null;
+    if (!current) {
+      return null;
+    }
+    const text = current.textContent.trim();
+    return text.replace(/^(Play|Stop)\s*/i, '').trim();
   }
 
   function captureTranscript() {
@@ -43,8 +47,9 @@
   }, 2000);
 
   browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    const senderHost = sender.url ? new URL(sender.url).hostname : '';
-    const isUdemyDomain = senderHost === 'udemy.com' || senderHost.endsWith('.udemy.com');
+    // Validate messages from this extension and ensure we're on a Udemy page.
+    const pageHost = window.location.hostname;
+    const isUdemyDomain = pageHost === 'udemy.com' || pageHost.endsWith('.udemy.com');
 
     if (sender.id !== browser.runtime.id || !isUdemyDomain) {
       return;
@@ -54,6 +59,7 @@
       sendResponse({ transcript: getTranscriptText() });
     }
     if (msg.action === 'getTranscriptData') {
+      captureTranscript();
       sendResponse({ currentChapter, transcripts: chapterTranscripts });
     }
   });
