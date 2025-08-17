@@ -61,11 +61,37 @@ textarea#transcript {
   font-size: 0.875rem;
   line-height: 1.4;
   resize: vertical;
-  width: 100%;
+  flex: 1;
   min-height: 10rem;
+  margin-left: 0.5rem;
+  width: auto;
   border: 1px solid #b4b9bf;
   border-radius: 0.25rem;
   padding: 0.5rem;
   box-sizing: border-box;
   overflow-y: auto;
+}
+
+#content {
+  display: flex;
+}
+
+#chapters {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 30%;
+  max-height: 260px;
+  overflow-y: auto;
+  border-right: 1px solid #b4b9bf;
+}
+
+#chapters li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#chapters li.active {
+  background-color: #e9ecef;
+  font-weight: bold;
 }
