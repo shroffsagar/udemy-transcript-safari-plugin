@@ -1,6 +1,8 @@
 (function() {
   const chapterTranscripts = {};
   let currentChapter = '';
+  const MAX_CHAPTERS = 50;
+  const MAX_TRANSCRIPT_LENGTH = 10000;
 
   function getTranscriptText() {
     const cueSpans = document.querySelectorAll('span[data-purpose="cue-text"]');
@@ -15,12 +17,19 @@
 
   function captureTranscript() {
     const chapterName = getCurrentChapterName();
-    const transcript = getTranscriptText();
+    let transcript = getTranscriptText();
     if (chapterName && transcript) {
       currentChapter = chapterName;
-      if (chapterTranscripts[chapterName] !== transcript) {
-        chapterTranscripts[chapterName] = transcript;
+      if (transcript.length > MAX_TRANSCRIPT_LENGTH) {
+        transcript = transcript.slice(0, MAX_TRANSCRIPT_LENGTH);
       }
+      if (chapterTranscripts[chapterName] !== undefined) {
+        delete chapterTranscripts[chapterName];
+      } else if (Object.keys(chapterTranscripts).length >= MAX_CHAPTERS) {
+        const oldest = Object.keys(chapterTranscripts)[0];
+        delete chapterTranscripts[oldest];
+      }
+      chapterTranscripts[chapterName] = transcript;
     }
   }
 
