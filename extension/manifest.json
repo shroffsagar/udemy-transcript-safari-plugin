@@ -4,8 +4,7 @@
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
-    "activeTab",
-    "downloads"
+    "activeTab"
   ],
   "host_permissions": [
     "https://www.udemy.com/*"
